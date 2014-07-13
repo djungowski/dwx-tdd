@@ -51,4 +51,23 @@ class FrameTest extends PHPUnit_Framework_TestCase
         $this->_frame->addScore(1);
         self::assertTrue($this->_frame->isClosed());
     }
+
+    /**
+     * @expectedException FrameException
+     * @expectedExceptionMessage You cannot throw more than 10 pins in one frame
+     */
+    public function testExceptionWhenThrowingTooMuchPinsOnce()
+    {
+        $this->_frame->addScore(11);
+    }
+
+    /**
+     * @expectedException FrameException
+     * * @expectedExceptionMessage You cannot throw more than 10 pins in one frame
+     */
+    public function testExceptionWhenThrowingTooMuchPinsInOneFrame()
+    {
+        $this->_frame->addScore(4);
+        $this->_frame->addScore(7);
+    }
 }
