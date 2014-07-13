@@ -11,6 +11,11 @@ class BowlingGameTest extends PHPUnit_Framework_TestCase
         $this->_game = new BowlingGame();
     }
 
+    public function testScoreIs0ByDefault()
+    {
+        self::assertEquals(0, $this->_game->score());
+    }
+
     public function testFirstRollSetsScore()
     {
         $this->_game->roll(1);
