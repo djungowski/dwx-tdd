@@ -9,11 +9,13 @@ class Frame
     private $_score = 0;
     private $_amountScores = 0;
     private $_closed = false;
+    private $_hasStrike = false;
 
     public function addScore($score)
     {
         if ($this->isStrike($score)) {
             $this->close();
+            $this->_hasStrike = true;
         } else {
             $this->checkThrows();
             $this->checkScoreIntegrity($score);
@@ -42,6 +44,11 @@ class Frame
     private function isStrike($score)
     {
         return ($this->_score == 0 && $score == self::MAX_SCORE_PER_FRAME);
+    }
+
+    public function hasStrike()
+    {
+        return $this->_hasStrike;
     }
 
     private function close()
