@@ -20,10 +20,7 @@ class BowlingGame
     private function addScoreToFrame($score)
     {
         $frame = $this->getCurrentFrame();
-        if ($frame->getScore() + $score > self::MAX_SCORE_PER_FRAME) {
-            throw new InvalidArgumentException('You cannot throw more than 10 pins in one frame');
-        }
-        $this->_frames[$this->_currentFrameNumber]->addScore($score);
+        $frame->addScore($score);
         $this->_score += $score;
     }
 

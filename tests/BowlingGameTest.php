@@ -30,7 +30,7 @@ class BowlingGameTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException FrameException
      */
     public function testExceptionWhenThrowingTooMuchPinsOnce()
     {
@@ -38,7 +38,7 @@ class BowlingGameTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException FrameException
      */
     public function testExceptionWhenThrowingTooMuchPinsInOneFrame()
     {
