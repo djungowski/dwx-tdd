@@ -15,7 +15,8 @@ class Frame
         if ($this->isStrike($score)) {
             $this->close();
         } else {
-            $this->checkOverallScoreIntegrity($score);
+            $this->checkThrows();
+            $this->checkScoreIntegrity($score);
         }
         $this->_amountScores++;
         $this->_score += $score;
@@ -24,11 +25,15 @@ class Frame
         }
     }
 
-    private function checkOverallScoreIntegrity($score)
+    private function checkThrows()
     {
         if ($this->_amountScores == self::MAX_SCORES) {
             throw new FrameException('Cannot throw more than twice in one frame');
         }
+    }
+
+    private function checkScoreIntegrity($score)
+    {
         if ($this->_score + $score > self::MAX_SCORE_PER_FRAME) {
             throw new FrameException('You cannot throw more than 10 pins in one frame');
         }
