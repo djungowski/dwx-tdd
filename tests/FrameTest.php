@@ -76,4 +76,11 @@ class FrameTest extends PHPUnit_Framework_TestCase
         $this->_frame->addScore(10);
         self::assertTrue($this->_frame->isClosed());
     }
+
+    public function testIsClosedWhenThrowingStrikeOnSecondThrow()
+    {
+        $this->_frame->addScore(0);
+        $this->_frame->addScore(10);
+        self::assertTrue($this->_frame->isClosed());
+    }
 }
