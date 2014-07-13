@@ -23,18 +23,17 @@ class BowlingGame
 
     public function roll($score)
     {
-        $this->addScoreToFrame($score);
-    }
-
-    private function addScoreToFrame($score)
-    {
         $frame = $this->getCurrentFrame();
         $frame->addScore($score);
         $this->_score += $score;
     }
 
+
     private function getCurrentFrame()
     {
+        if ($this->_frames[$this->_currentFrameNumber]->isClosed()) {
+            $this->_currentFrameNumber++;
+        }
         return $this->_frames[$this->_currentFrameNumber];
     }
 

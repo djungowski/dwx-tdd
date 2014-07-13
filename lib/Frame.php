@@ -8,17 +8,35 @@ class Frame
 
     private $_score = 0;
     private $_amountScores = 0;
+    private $_closed = false;
 
     public function addScore($score)
     {
-        if ($this->_amountScores == self::MAX_SCORES) {
-            throw new FrameException('Cannot throw more than twice in one frame');
-        }
-        if ($this->_score + $score > self::MAX_SCORE_PER_FRAME) {
-            throw new FrameException('You cannot throw more than 10 pins in one frame');
+        if ($this->isStrike($score)) {
+            $this->close();
+        } else {
+            if ($this->_amountScores == self::MAX_SCORES) {
+                throw new FrameException('Cannot throw more than twice in one frame');
+            }
+            if ($this->_score + $score > self::MAX_SCORE_PER_FRAME) {
+                throw new FrameException('You cannot throw more than 10 pins in one frame');
+            }
         }
         $this->_amountScores++;
         $this->_score += $score;
+        if ($this->_amountScores >= self::MAX_SCORES) {
+            $this->close();
+        }
+    }
+
+    private function isStrike($score)
+    {
+        return ($this->_score == 0 && $score == self::MAX_SCORE_PER_FRAME);
+    }
+
+    private function close()
+    {
+        $this->_closed = true;
     }
 
     public function getScore()
@@ -28,6 +46,6 @@ class Frame
 
     public function isClosed()
     {
-        return ($this->_amountScores >= self::MAX_SCORES);
+        return $this->_closed;
     }
 }
