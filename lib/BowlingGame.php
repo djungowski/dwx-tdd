@@ -1,4 +1,5 @@
 <?php
+require_once 'Frame.php';
 
 class BowlingGame
 {
@@ -19,10 +20,10 @@ class BowlingGame
     private function addScoreToFrame($score)
     {
         $frame = $this->getCurrentFrame();
-        if ($frame + $score > self::MAX_SCORE_PER_FRAME) {
+        if ($frame->getScore() + $score > self::MAX_SCORE_PER_FRAME) {
             throw new InvalidArgumentException('You cannot throw more than 10 pins in one frame');
         }
-        $this->_frames[$this->_currentFrameNumber] += $score;
+        $this->_frames[$this->_currentFrameNumber]->addScore($score);
         $this->_score += $score;
     }
 
@@ -35,7 +36,7 @@ class BowlingGame
     private function createNewFrameIfNecessary()
     {
         if(!isset($this->_frames[$this->_currentFrameNumber])) {
-            $this->_frames[$this->_currentFrameNumber] = 0;
+            $this->_frames[$this->_currentFrameNumber] = new Frame();
         }
     }
 
