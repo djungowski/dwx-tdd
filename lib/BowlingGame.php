@@ -3,17 +3,26 @@ require_once 'Frame.php';
 
 class BowlingGame
 {
-    const MAX_SCORE_PER_FRAME = 10;
+    const MAX_FRAMES = 10;
 
     private $_score = 0;
     private $_frames = array();
     private $_currentFrameNumber = 0;
 
+    public function __construct()
+    {
+        $this->createAllFrames();
+    }
+
+    private function createAllFrames()
+    {
+        for($i = 0; $i < self::MAX_FRAMES; $i++) {
+            $this->_frames[$i] = new Frame();
+        }
+    }
+
     public function roll($score)
     {
-        if ($this->isStrike($score)) {
-
-        }
         $this->addScoreToFrame($score);
     }
 
@@ -26,20 +35,7 @@ class BowlingGame
 
     private function getCurrentFrame()
     {
-        $this->createNewFrameIfNecessary();
         return $this->_frames[$this->_currentFrameNumber];
-    }
-
-    private function createNewFrameIfNecessary()
-    {
-        if(!isset($this->_frames[$this->_currentFrameNumber])) {
-            $this->_frames[$this->_currentFrameNumber] = new Frame();
-        }
-    }
-
-    private function isStrike($score)
-    {
-        return $score == self::MAX_SCORE_PER_FRAME;
     }
 
     public function score()
