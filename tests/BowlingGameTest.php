@@ -32,8 +32,25 @@ class BowlingGameTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testExceptionWhenThrowingTooMuchPins()
+    public function testExceptionWhenThrowingTooMuchPinsOnce()
     {
         $this->_game->roll(11);
     }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testExceptionWhenThrowingTooMuchPinsInOneFrame()
+    {
+        $this->_game->roll(4);
+        $this->_game->roll(7);
+    }
+
+//    public function testBonusScoreIfUserStrikes()
+//    {
+//        $this->_game->roll(10);
+//        $this->_game->roll(5);
+//        $this->_game->roll(3);
+//        self::assertEquals(26, $this->_game->score());
+//    }
 }
